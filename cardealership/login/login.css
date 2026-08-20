@@ -1,0 +1,98 @@
+:root {
+  --bg: #06070c;
+  --surface: #12151f;
+  --surface-alt: #171c29;
+  --text: #f2f4fa;
+  --muted: #8b93a8;
+  --border: rgba(255,255,255,.09);
+  --accent: #ff5b2e;
+  --accent-dark: #e2461b;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+input[type=text],
+input[type=email],
+input[type=password],
+select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  background-color: var(--surface);
+  border-radius: 10px;
+  box-sizing: border-box;
+  border: 1px solid var(--border);
+  color: var(--text);
+}
+
+input[type=submit],
+.submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg,#ff5b2e,#ff8a3d);
+  color: #0a0a0d;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 800;
+  transition: all .22s ease;
+}
+
+input[type=submit]:hover,
+.submit-btn:hover {
+  transform: translateY(-2px);
+}
+
+div {
+  border-radius: 5px;
+  background-color: transparent;
+  padding: 20px;
+}
+
+input[type=text]:focus,
+input[type=email]:focus,
+input[type=password]:focus {
+  border: 1px solid var(--accent);
+  outline: none;
+}
+
+label {
+  color: var(--text);
+}
+
+.select {
+  color: var(--text);
+}
+
+p {
+  color: var(--muted);
+  font-size: 30px;
+}
+
+.formlogin {
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+}
+
+.auth-shell,
+.auth-card,
+.brand-panel,
+.form-panel {
+  background: var(--surface);
+  color: var(--text);
+}
+
+.tab-btn.active,
+.switch-link {
+  color: var(--accent);
+}
+
+.info-list span {
+  color: var(--muted);
+}

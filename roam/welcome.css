@@ -1,0 +1,163 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    min-height:100vh;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px;
+    font-size:24px;
+}
+
+.username{
+    font-size:22px;
+    font-weight:bold;
+}
+
+.right{
+    display:flex;
+    gap:20px;
+}
+
+.profile{
+    padding:20px;
+}
+
+.profile-top{
+    display:flex;
+    align-items:center;
+    gap:30px;
+}
+
+.avatar{
+    position:relative;
+}
+
+.avatar img{
+    width:90px;
+    height:90px;
+    border-radius:50%;
+    background:#ddd;
+}
+
+.add-btn{
+    position:absolute;
+    right:-5px;
+    bottom:-5px;
+    width:28px;
+    height:28px;
+    background:#fff;
+    color:#000;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+.stats{
+    display:flex;
+    gap:40px;
+}
+
+.stats h3{
+    text-align:center;
+}
+
+.stats p{
+    color:#ddd;
+}
+
+.bio{
+    margin-top:20px;
+}
+
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:20px;
+}
+
+.buttons button{
+    flex:1;
+    background:#2a2d33;
+    color:#fff;
+    border:none;
+    padding:12px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.icon-btn{
+    flex:0.3;
+}
+
+.tabs{
+    display:flex;
+    justify-content:space-around;
+    margin-top:20px;
+    border-top:1px solid #222;
+    border-bottom:1px solid #222;
+}
+
+.tabs div{
+    padding:15px;
+    width:50%;
+    text-align:center;
+    color:#888;
+}
+
+.tabs .active{
+    color:#fff;
+    border-bottom:2px solid #fff;
+}
+
+.feed{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:400px;
+    gap:60px;
+}
+
+.error-box{
+    background:#17191d;
+    padding:20px 40px;
+    border-radius:20px;
+    font-size:20px;
+}
+
+.reload{
+    width:80px;
+    height:80px;
+    border:3px solid #fff;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:35px;
+}
+
+.bottom-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    background:#000;
+    border-top:1px solid #222;
+    display:flex;
+    justify-content:space-around;
+    padding:15px 0;
+    font-size:28px;
+}

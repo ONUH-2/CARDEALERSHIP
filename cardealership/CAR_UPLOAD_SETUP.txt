@@ -1,0 +1,25 @@
+AKAZA'S MOTORS - UPDATED CAR MANAGEMENT
+
+1. Replace your existing cardealership folder with this folder after making a backup.
+2. Keep your existing form/ folder and MySQL database. This project still uses ../form/inc/connect.php.
+3. Make sure Apache and MySQL are running in XAMPP.
+4. The uploads/cars/ folder is included and PHP must be allowed to write to it.
+5. Log in with your admin account (ytgg2909@gmail.com) to access Admin.
+
+CAR MANAGEMENT
+- Admin > Add Car creates a real database car.
+- Admin > Manage Cars lets you edit, hide/restore, or delete database cars.
+- Edit Car always shows the upload control, even when the car currently has no picture.
+- Images are validated as JPG, PNG, or WebP and limited to 8 MB each.
+- A car with no image uses the existing site placeholder until a picture is uploaded.
+- Newly uploaded database cars use the same car-details.php and buy-now.php flow as the existing inventory cars.
+
+SIGN UP VALIDATION
+- Sign up is handled on the existing login page instead of sending the user to another page.
+- Password must be at least 6 characters.
+- Confirm password must match.
+- Validation errors are displayed inside the existing login/sign-up design.
+
+IMPORTANT
+- Do not delete your form/ folder because the dealership still uses its database connection file.
+- Your MySQL database is separate from this ZIP and is not overwritten by replacing the folder.

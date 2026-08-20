@@ -1,0 +1,6 @@
+﻿<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800' viewBox='0 0 1200 800'>
+  <rect width='1200' height='800' fill='#111'/>
+  <rect x='100' y='100' width='1000' height='600' rx='40' fill='#1a1a1a' stroke='#444' stroke-width='6'/>
+  <text x='600' y='420' font-family='Arial, sans-serif' font-size='48' fill='#888' text-anchor='middle'>Image</text>
+  <text x='600' y='490' font-family='Arial, sans-serif' font-size='32' fill='#888' text-anchor='middle'>Not Available</text>
+</svg>
