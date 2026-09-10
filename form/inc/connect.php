@@ -16,7 +16,7 @@ if (!class_exists('mysqli')) {
 }
 mysqli_report(MYSQLI_REPORT_OFF);
 
-$host = getenv('DB_HOST') ?: '127.0.0.1';
+$host = getenv('DB_HOST') ?: 'localhost';
 $user = getenv('DB_USER') ?: 'root';
 $pass = getenv('DB_PASS');
 if ($pass === false) $pass = '';

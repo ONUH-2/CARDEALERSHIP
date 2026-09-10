@@ -90,18 +90,8 @@ CREATE TABLE IF NOT EXISTS appointments (
 
 -- ------------------------------------------------------------
 -- 5. MIGRATE EXISTING USERS from form_data.user_data
--- ------------------------------------------------------------
-INSERT IGNORE INTO user_data (id, fullname, username, email, password, regdate)
-SELECT
-    fd.id,
-    COALESCE(NULLIF(TRIM(fd.firstname), ''), fd.username) AS fullname,
-    fd.username,
-    fd.email,
-    fd.password,
-    fd.regdate
-FROM form_data.user_data AS fd
-WHERE fd.email NOT IN ('', 'emeil')
-  AND fd.email LIKE '%@%';
+-- Existing users can be migrated manually from another database if needed.
+-- The schema intentionally does not require a separate `form_data` database.
 
 -- AUTO_INCREMENT resets automatically after INSERT with explicit IDs
 
