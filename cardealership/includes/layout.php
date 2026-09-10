@@ -23,14 +23,14 @@ function render_navbar(string $active = ''): void {
     $isAdmin = is_admin_user();
     $apptCount = get_nav_appt_count();
     echo '<nav class="navbar">';
-    echo '<a href="/cardealership/index.php" class="logo"><i class="fa-solid fa-bolt"></i> AKAZA\'S MOTORS</a>';
+    echo '<a href="' . esc(app_url('index.php')) . '" class="logo"><i class="fa-solid fa-bolt"></i> AKAZA\'S MOTORS</a>';
     echo '<ul class="nav-links">';
     $items = [
-        ['href' => '/cardealership/index.php', 'label' => 'Home'],
-        ['href' => '/cardealership/inventory.php', 'label' => 'Inventory'],
+        ['href' => app_url('index.php'), 'label' => 'Home'],
+        ['href' => app_url('inventory.php'), 'label' => 'Inventory'],
     ];
     if ($isLoggedIn) {
-        $items[] = ['href' => '/cardealership/my-appointments.php', 'label' => 'My Appointments'];
+        $items[] = ['href' => app_url('my-appointments.php'), 'label' => 'My Appointments'];
     }
     foreach ($items as $item) {
         $class = $active === $item['label'] ? 'active' : '';
@@ -38,13 +38,13 @@ function render_navbar(string $active = ''): void {
         echo '<li><a class="' . esc($class) . '" href="' . esc($item['href']) . '">' . esc($item['label']) . $suffix . '</a></li>';
     }
     if ($isAdmin) {
-        echo '<li><a class="' . esc($active === 'Admin' ? 'active' : '') . '" href="/cardealership/admin/dashboard.php">Admin</a></li>';
+        echo '<li><a class="' . esc($active === 'Admin' ? 'active' : '') . '" href="' . esc(app_url('admin/dashboard.php')) . '">Admin</a></li>';
     }
     echo '</ul>';
     if ($isLoggedIn) {
-        echo '<div class="user-area"><span class="user-name"><i class="fa fa-user-circle"></i> ' . esc($_SESSION['username']) . '</span><a class="user-logout" href="/cardealership/login/logout.php"><i class="fa fa-sign-out-alt"></i> Log out</a></div>';
+        echo '<div class="user-area"><span class="user-name"><i class="fa fa-user-circle"></i> ' . esc($_SESSION['username']) . '</span><a class="user-logout" href="' . esc(app_url('login/logout.php')) . '"><i class="fa fa-sign-out-alt"></i> Log out</a></div>';
     } else {
-        echo '<a class="nav-cta" href="/cardealership/login/login.php?form=signup"><i class="fa fa-user-plus"></i> Sign Up</a>';
+        echo '<a class="nav-cta" href="' . esc(app_url('login/login.php?form=signup')) . '"><i class="fa fa-user-plus"></i> Sign Up</a>';
     }
     echo '</nav>';
 }

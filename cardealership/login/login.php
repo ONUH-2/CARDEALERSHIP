@@ -11,7 +11,10 @@ if (!isset($con) || $con === false) {
     $message = 'Database unavailable. Please try again later.';
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($con) && $con !== false) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($con) || $con === false) {
+        $message = 'Database unavailable. Please check your MySQL setup and try again.';
+    } else {
     $formType = $_POST['form_type'] ?? 'login';
     $activeForm = $formType === 'signup' ? 'signup' : 'login';
 
@@ -75,7 +78,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($con) && $con !== false) {
                 $user = $result->fetch_assoc();
                 $storedPassword = (string)$user['password'];
 
-                if (password_verify($password, $storedPassword) || hash_equals($storedPassword, $password)) {
+                $passwordIsValid = password_verify($password, $storedPassword);
+                $isLegacyPlaintext = !$passwordIsValid && $storedPassword !== '' && hash_equals($storedPassword, $password);
+
+                if ($passwordIsValid || $isLegacyPlaintext) {
+                    if ($isLegacyPlaintext || password_needs_rehash($storedPassword, PASSWORD_DEFAULT)) {
+                        $newHash = password_hash($password, PASSWORD_DEFAULT);
+                        $upgrade = $con->prepare('UPDATE user_data SET password = ? WHERE id = ?');
+                        if ($upgrade) {
+                            $upgrade->bind_param('si', $newHash, $user['id']);
+                            $upgrade->execute();
+                            $upgrade->close();
+                        }
+                    }
+                    session_regenerate_id(true);
                     $_SESSION['user_id'] = (int)$user['id'];
                     $_SESSION['username'] = $user['username'];
                     $_SESSION['email'] = $user['email'];
@@ -91,6 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($con) && $con !== false) {
         } else {
             $message = 'Please fill in both fields.';
         }
+    }
     }
 }
 ?>
@@ -191,6 +208,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($con) && $con !== false) {
     .submit-btn:hover { transform: translateY(-2px); box-shadow: 0 16px 38px rgba(255,91,46,.42); }
     .switch-text { margin-top: 10px; color: var(--muted); font-size: .92rem; }
     .switch-link { color: var(--accent-2); font-weight: 700; }
+    .notice { border-radius: 12px; padding: 11px 13px; margin-bottom: 14px; }
+    .notice-success { color: #4ade80; background: rgba(74,222,128,.1); border: 1px solid rgba(74,222,128,.35); }
+    .notice-error { color: #ff8a8a; background: rgba(220,38,38,.1); border: 1px solid rgba(220,38,38,.35); }
     @media (max-width: 840px) { .auth-card { grid-template-columns: 1fr; } .brand-panel { padding-bottom: 24px; } .form-panel { padding-top: 16px; } }
   </style>
 
@@ -212,13 +232,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($con) && $con !== false) {
 
       <div class="form-panel">
         <div class="tabs">
-          <button class="tab-btn <?php echo $activeForm === 'login' ? 'active' : ''; ?>" data-form="login">Login</button>
-          <button class="tab-btn <?php echo $activeForm === 'signup' ? 'active' : ''; ?>" data-form="signup">Sign up</button>
+          <button type="button" class="tab-btn <?php echo $activeForm === 'login' ? 'active' : ''; ?>" data-form="login">Login</button>
+          <button type="button" class="tab-btn <?php echo $activeForm === 'signup' ? 'active' : ''; ?>" data-form="signup">Sign up</button>
         </div>
 
-        <?php if (!empty($message)) { ?>
-          <div style="color:#4ade80;background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.35);border-radius:12px;padding:11px 13px;margin-bottom:14px;">
-            <?php echo htmlspecialchars($message); ?>
+        <?php if (!empty($message)) {
+          $messageIsSuccess = $activeForm === 'login' && $message === 'Account created successfully. You can now log in.';
+        ?>
+          <div class="notice <?= $messageIsSuccess ? 'notice-success' : 'notice-error'; ?>" role="alert">
+            <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
           </div>
         <?php } ?>
 

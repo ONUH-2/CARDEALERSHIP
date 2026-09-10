@@ -68,7 +68,28 @@ CREATE TABLE IF NOT EXISTS orders (
 ) ENGINE=InnoDB;
 
 -- ------------------------------------------------------------
--- 4. MIGRATE EXISTING USERS from form_data.user_data
+-- 4. APPOINTMENTS TABLE
+-- ------------------------------------------------------------
+CREATE TABLE IF NOT EXISTS appointments (
+    id                INT AUTO_INCREMENT PRIMARY KEY,
+    user_id           INT NOT NULL,
+    car_id            INT NOT NULL,
+    customer_name     VARCHAR(120) NOT NULL,
+    customer_email    VARCHAR(160) NOT NULL,
+    customer_phone    VARCHAR(40) NOT NULL,
+    appointment_date  DATE NOT NULL,
+    appointment_time  TIME NOT NULL,
+    appointment_type  ENUM('Viewing', 'Test Drive') NOT NULL DEFAULT 'Viewing',
+    message           TEXT DEFAULT NULL,
+    status            ENUM('Pending', 'Approved', 'Confirmed', 'Completed', 'Rejected', 'Cancelled') NOT NULL DEFAULT 'Pending',
+    created_at        TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    INDEX idx_appointments_user (user_id),
+    INDEX idx_appointments_car (car_id),
+    INDEX idx_appointments_date (appointment_date)
+) ENGINE=InnoDB;
+
+-- ------------------------------------------------------------
+-- 5. MIGRATE EXISTING USERS from form_data.user_data
 -- ------------------------------------------------------------
 INSERT IGNORE INTO user_data (id, fullname, username, email, password, regdate)
 SELECT
