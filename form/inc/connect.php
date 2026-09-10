@@ -22,8 +22,8 @@ $pass = getenv('DB_PASS');
 if ($pass === false) $pass = '';
 $requestedDb = getenv('DB_NAME');
 if ($requestedDb === false) $requestedDb = '';
-
-$con = @new mysqli($host, $user, $pass);
+$port = (int)(getenv('DB_PORT') ?: 3306);
+$con = @new mysqli($host, $user, $pass, '', $port);
 if ($con->connect_errno) {
     $con = false;
     return;
